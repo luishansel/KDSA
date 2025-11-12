@@ -10,7 +10,7 @@ include ("MasterWeb.php");
 require_once ("funciones/fxGeneral.php");
 $m_cnx_MySQL = fxAbrirConexion();
 
-$codCurso = trim($_POST["msCurso"]);
+$codCurso = trim($_POST["KDSA"]);
 $msConsulta = "select KDSA030A.MATRICULA_REL, KDSA030A.ESTUDIANTE_REL, concat(trim(APELLIDOS_010), ', ', trim(NOMBRES_010)) as NOMBRECOMPLETO ";
 $msConsulta .= "from KDSA030A, KDSA010A where KDSA030A.ESTUDIANTE_REL = KDSA010A.ESTUDIANTE_REL and KDSA030A.ESTADO_030 <> 4 ";
 $msConsulta .= "and KDSA030A.CURSO_REL = ?";
