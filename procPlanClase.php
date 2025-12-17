@@ -762,7 +762,7 @@ function verificarFormulario() {
         return false;
     }
 
-    //if (administrador == 0 && academico == 0)
+    if (administrador == 0 && academico == 0)
     {
         const MILISEGUNDOS_POR_DIA = 1000 * 60 * 60 * 24;
         var fechaClase = new Date(document.getElementById('cboFechaClase').value + "T00:00:00");
