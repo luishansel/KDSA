@@ -185,7 +185,7 @@
 					$Motivo = "";
 					$Medio = "";
 					$FuenteIngreso = 0;
-					$PrimeraVez = 0;
+					$PrimeraVez = 1;
 					$Becado = 0;
 					$BecadoPor = "";
 					$Inatec = 0;
