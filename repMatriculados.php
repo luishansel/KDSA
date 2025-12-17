@@ -270,7 +270,19 @@ else
 					$mnReg = $mAuxiliar->rowCount();
 
 					if ($mnReg == 0)
-						$Recibo = "";
+					{
+						//Reingreso
+						$msConsulta = "SELECT PRIMERAVEZ_030 FROM KDSA030A WHERE MATRICULA_REL = ?";
+						$mAuxiliar = $m_cnx_MySQL->prepare($msConsulta);
+						$mAuxiliar->execute([$Matricula]);
+						$mRow = $mAuxiliar->fetch();
+						$mnPrimero = $mRow["PRIMERAVEZ_030"];
+
+						if ($mnPrimero == 1)
+							$Recibo = "";
+						else
+							$Recibo = "Reingreso";
+					}
 					else
 					{
 						$mrAux = $mAuxiliar->fetch();
