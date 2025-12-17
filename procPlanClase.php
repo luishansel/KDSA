@@ -761,6 +761,23 @@ function verificarFormulario() {
         $.messager.alert('KDSA', 'Las calificaciones están incompletas. No podrá guardar la Planificación de Clases hasta que ingrese las calificaciones de los módulos anteriores.', 'warning');
         return false;
     }
+
+    //if (administrador == 0 && academico == 0)
+    {
+        const MILISEGUNDOS_POR_DIA = 1000 * 60 * 60 * 24;
+        var fechaClase = new Date(document.getElementById('cboFechaClase').value + "T00:00:00");
+        var milisegundosFechaClase = fechaClase.getTime();
+        var milisegundosFechaHoy = fechaHoy.getTime();
+        var diferenciaMilisegundos = milisegundosFechaHoy - milisegundosFechaClase;
+        var dias = Math.round(diferenciaMilisegundos / MILISEGUNDOS_POR_DIA);
+
+        dias = Math.floor(dias);
+        if (dias > -3)
+        {
+            $.messager.alert('KDSA', 'La Planificación no puede ingresarse porque faltan menos de tres días para impartir la clase.', 'warning');
+            return false;
+        }
+    }
 /*
     if (administrador == 0 && academico == 0)
     {
