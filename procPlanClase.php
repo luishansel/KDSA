@@ -772,9 +772,9 @@ function verificarFormulario() {
         var dias = Math.round(diferenciaMilisegundos / MILISEGUNDOS_POR_DIA);
 
         dias = Math.floor(dias);
-        if (dias > -3)
+        if (dias > -2)
         {
-            $.messager.alert('KDSA', 'La Planificación no puede ingresarse porque faltan menos de tres días para impartir la clase.', 'warning');
+            $.messager.alert('KDSA', 'La Planificación no puede ingresarse porque faltan menos de dos días para impartir la clase.', 'warning');
             return false;
         }
     }
