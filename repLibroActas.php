@@ -171,7 +171,8 @@ $pdf->SetMargins(PDF_MARGIN_LEFT, 16, PDF_MARGIN_RIGHT);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 
 // set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+//$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+$pdf->SetAutoPageBreak(FALSE, PDF_MARGIN_BOTTOM);
 
 // set some language-dependent strings (optional)
 if (@file_exists(dirname(__FILE__).'/lang/spa.php')) {

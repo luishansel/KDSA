@@ -92,10 +92,11 @@ $pdf->setPrintHeader(false);
 $pdf->setPrintFooter(false);
 
 // set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+//$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+$pdf->SetMargins(PDF_MARGIN_LEFT, 16, PDF_MARGIN_RIGHT);
 
 // set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+$pdf->SetAutoPageBreak(FALSE, PDF_MARGIN_BOTTOM); //LHVG 20260122 Anteriormente estaba TRUE
 
 // set some language-dependent strings (optional)
 if (@file_exists(dirname(__FILE__).'/lang/spa.php')) {
