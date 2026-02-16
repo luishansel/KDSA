@@ -325,7 +325,7 @@ while($mFila = $mDatos->fetch())
 	$pdf->Cell(180, 20, 'ACTA '. $mnActa, 0, 0, 'C', 0, '');
 	$mnLinea += 8;
 
-	if ($mnLinea >= 238) //238 líneas máximo (3O líneas de texto con 8 de altura) --LHVG 20230915
+	if ($mnLinea >= 240) //240 líneas máximo (3O líneas de texto con 8 de altura) --LHVG 20230915
 	{
 		$mnLinea = 8;
 		$pdf->AddPage();
@@ -358,7 +358,7 @@ while($mFila = $mDatos->fetch())
 			$msTextoCelda = $mTexto;
 			$mnLinea += 8;
 
-			if ($mnLinea >= 238) //238 líneas máximo (3O líneas de texto con 8 de altura) --LHVG 20230915
+			if ($mnLinea >= 240) //240 líneas máximo (3O líneas de texto con 8 de altura) --LHVG 20230915
 			{
 				$mnLinea = 8;
 				$pdf->AddPage();
@@ -389,7 +389,7 @@ while($mFila = $mDatos->fetch())
 		$msTextoCelda = $mnRegistro . '-' . $mnAnno . ' ' . html_entity_decode($msNombreCompleto);
 		
 		$mnLinea += 8;
-		if ($mnLinea >= 238) //238 líneas máximo (3O líneas de texto con 8 de altura) --LHVG 20230915
+		if ($mnLinea >= 240) //240 líneas máximo (3O líneas de texto con 8 de altura) --LHVG 20230915
 		{
 			$mnLinea = 8;
 			$pdf->AddPage();
