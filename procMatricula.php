@@ -291,9 +291,15 @@
                                     }
                                 ?>
                             </select>
-							<input type="hidden" class="form-control" id="txnDisponible" name="txnDisponible" value="0" />
                         </div>
                     </div>
+
+					<div class = "form-group row">
+						<label for="txtDestinatario" class="col-sm-12 col-md-3 col-form-label">Cupos diponibles</label>
+						<div class="col-sm-12 col-md-2">
+							<input type="number" class="form-control" id="txnDisponible" name="txnDisponible" value="0" readonly/>
+						</div>
+					</div>
 
 					<div class="form-group row">
 						<label for="cboTipoAsistencia" class="col-sm-12 col-md-3 col-form-label">Tipo de asistencia</label>
@@ -343,8 +349,6 @@
 								echo('<input type="number" step="0.01" style="text-align:right" class="form-control" id="txnDescuento" name="txnDescuento" value="' . $Descuento . '" />');
 						?>
                         </div>
-                        <div class="col-auto">
-                        </div>
                     </div>
                     
                     <div class = "form-group row">
@@ -352,16 +356,12 @@
                         <div class="col-sm-12 col-md-7">
 							<?php echo('<input type="text" class="form-control" id="txtMotivo" name="txtMotivo" value="' . $Motivo . '" />'); ?>
                         </div>
-                        <div class="col-auto">
-                        </div>
                     </div>
                     
                     <div class = "form-group row">
 						<label for="txtMedio" class="col-sm-12 col-md-3 col-form-label">Medio por el cual se enteró</label>
                         <div class="col-sm-12 col-md-7">
 							<?php echo('<input type="text" class="form-control" id="txtMedio" name="txtMedio" value="' . $Medio . '" />'); ?>
-                        </div>
-                        <div class="col-auto">
                         </div>
                     </div>
                     
@@ -440,8 +440,6 @@
 									echo('<input type="text" class="form-control" id="txtBecadoPor" name="txtBecadoPor" value="' . $BecadoPor . '" />');
                                 else
                                 	echo('<input type="text" class="form-control" id="txtBecadoPor" name="txtBecadoPor" value="" disabled />'); ?>
-                        </div>
-                        <div class="col-auto">
                         </div>
                     </div>
                     

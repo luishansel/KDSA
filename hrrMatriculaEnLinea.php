@@ -90,7 +90,7 @@
 				<div class="row" style="margin-top:1%">
 					<div class="col-md-12">
 						<label for="cboCurso" class="col-sm-12 col-md-2 form-label">Curso solicitado</label></th>
-						<select class="form-control col-sm-12 col-md-10" id="cboCurso" name="cboCurso">
+						<select class="form-control col-sm-12 col-md-10" id="cboCurso" name="cboCurso" onchange="llenaDisponible(this.value)">
 						<?php
 							$msConsulta = "select CURSO_REL, concat(NOMBRE_020, ' (', CONVOCATORIA_020, '/G', GRUPO_020, ')') as NOMBRE ";
 							$msConsulta .= "from KDSA020A where ACTIVO_020 = 1  and DATEDIFF(CURRENT_DATE, FECHAINI_020) <= 8 ";
@@ -107,6 +107,13 @@
 							}
 						?>
 						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class = "col-md-12">
+						<label for="txtDestinatario" class="col-sm-12 col-md-2 col-form-label">Cupos diponibles</label>
+						<input type="number" class="form-control col-sm-12 col-md-1" id="txnDisponible" name="txnDisponible" value="0" readonly/>
 					</div>
 				</div>
 
@@ -160,7 +167,40 @@
 <script src="js/jquery.easyui.min.js"></script>
 <script src="js/jquery.redirect.js"></script>
 <script>
+	window.onload = function() {
+		var curso = document.getElementById('cboCurso').value;
+		llenaDisponible(curso);
+	}
+
+	function llenaDisponible (curso)
+	{
+		var datos = new FormData();
+		datos.append('maximoCurso', curso);
+
+		$.ajax({
+			url: 'funciones/fxDatosExternos.php',
+			type: 'post',
+			data: datos,
+			contentType: false,
+			processData: false,
+			success: function(response){
+				document.getElementById('txnDisponible').value = response;
+			}
+		})
+	}
+
 	function verificarFormulario() {
+		var administrador = <?php echo($Administrador); ?>;
+
+		if (document.getElementById('txtCodMatricula').value == "")
+		{
+			if (document.getElementById('txnDisponible').value == 0 && administrador == 0)
+			{
+				$.messager.alert('KDSA','Se alcanzó la cantidad máxima de alumnos para este curso.','warning');
+				return false;
+			}
+		}
+
 		if (document.getElementById('txtDestinatario').value == "") {
 			$.messager.alert('KDSA', 'Falta el Nombre del Destinatario.', 'warning');
 			return false;
