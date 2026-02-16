@@ -112,7 +112,7 @@
 
 				<div class="row">
 					<div class = "col-md-12">
-						<label for="txtDestinatario" class="col-sm-12 col-md-2 col-form-label">Cupos diponibles</label>
+						<label for="txnDisponible" class="col-sm-12 col-md-2 col-form-label">Cupos diponibles</label>
 						<input type="number" class="form-control col-sm-12 col-md-1" id="txnDisponible" name="txnDisponible" value="0" readonly/>
 					</div>
 				</div>

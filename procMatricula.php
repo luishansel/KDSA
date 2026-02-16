@@ -295,7 +295,7 @@
                     </div>
 
 					<div class = "form-group row">
-						<label for="txtDestinatario" class="col-sm-12 col-md-3 col-form-label">Cupos diponibles</label>
+						<label for="txnDisponible" class="col-sm-12 col-md-3 col-form-label">Cupos diponibles</label>
 						<div class="col-sm-12 col-md-2">
 							<input type="number" class="form-control" id="txnDisponible" name="txnDisponible" value="0" readonly/>
 						</div>
