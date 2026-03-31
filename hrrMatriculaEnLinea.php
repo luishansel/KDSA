@@ -192,13 +192,10 @@
 	function verificarFormulario() {
 		var administrador = <?php echo($Administrador); ?>;
 
-		if (document.getElementById('txtCodMatricula').value == "")
+		if (document.getElementById('txnDisponible').value == 0 && administrador == 0)
 		{
-			if (document.getElementById('txnDisponible').value == 0 && administrador == 0)
-			{
-				$.messager.alert('KDSA','Se alcanzó la cantidad máxima de alumnos para este curso.','warning');
-				return false;
-			}
+			$.messager.alert('KDSA','Se alcanzó la cantidad máxima de alumnos para este curso.','warning');
+			return false;
 		}
 
 		if (document.getElementById('txtDestinatario').value == "") {
