@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     23/09/2025 2:16:42 p. m.                     */
+/* Created on:     02/04/2026 10:12:50 a. m.                    */
 /*==============================================================*/
 
 
@@ -253,6 +253,18 @@ create table KDSA023A
    FECHA_023            datetime  comment '',
    TEXTO_023            varchar(500)  comment '',
    primary key (CURSO_REL, DOCENTE_REL, DETINCIDENCIA_REL)
+);
+
+/*==============================================================*/
+/* Table: KDSA024A                                              */
+/*==============================================================*/
+create table KDSA024A
+(
+   CURSO_REL            varchar(10) not null  comment '',
+   DOCUMENTO_REL        numeric(2,0) not null  comment '',
+   ARCHIVO_024          varchar(100)  comment '',
+   RUTA_024             varchar(250)  comment '',
+   primary key (CURSO_REL, DOCUMENTO_REL)
 );
 
 /*==============================================================*/
@@ -1085,6 +1097,30 @@ create table KDSA191A
    primary key (ACTA_REL, MATRICULA_REL)
 );
 
+/*==============================================================*/
+/* Table: KDSA200A                                              */
+/*==============================================================*/
+create table KDSA200A
+(
+   DOCCURSO_REL         varchar(10) not null  comment '',
+   CURSO_200            varchar(100)  comment '',
+   primary key (DOCCURSO_REL)
+);
+
+alter table KDSA200A comment 'Aquí se guardan los documentos digitales que deben ir de man';
+
+/*==============================================================*/
+/* Table: KDSA201A                                              */
+/*==============================================================*/
+create table KDSA201A
+(
+   DOCCURSO_REL         varchar(10) not null  comment '',
+   DOCCURSOCONS_REL     numeric(2,0) not null  comment '',
+   ARCHIVO_201          varchar(100)  comment '',
+   RUTA_201             varchar(250)  comment '',
+   primary key (DOCCURSO_REL, DOCCURSOCONS_REL)
+);
+
 alter table KDSA005A add constraint FK_KDSA005A_REL_003_0_KDSA003A foreign key (GRUPO_REL)
       references KDSA003A (GRUPO_REL) on delete restrict on update restrict;
 
@@ -1123,6 +1159,9 @@ alter table KDSA023A add constraint FK_KDSA023A_REL_020_0_KDSA020A foreign key (
 
 alter table KDSA023A add constraint FK_KDSA023A_REL_100_0_KDSA100A foreign key (DOCENTE_REL)
       references KDSA100A (DOCENTE_REL) on delete restrict on update restrict;
+
+alter table KDSA024A add constraint FK_KDSA024A_REL_020_0_KDSA020A foreign key (CURSO_REL)
+      references KDSA020A (CURSO_REL) on delete restrict on update restrict;
 
 alter table KDSA030A add constraint FK_KDSA030A_REL_010_0_KDSA010A foreign key (ESTUDIANTE_REL)
       references KDSA010A (ESTUDIANTE_REL) on delete restrict on update restrict;
@@ -1324,4 +1363,7 @@ alter table KDSA191A add constraint FK_KDSA191A_REL_030_1_KDSA030A foreign key (
 
 alter table KDSA191A add constraint FK_KDSA191A_REL_190_1_KDSA190A foreign key (ACTA_REL)
       references KDSA190A (ACTA_REL) on delete restrict on update restrict;
+
+alter table KDSA201A add constraint FK_KDSA201A_REL_200_2_KDSA200A foreign key (DOCCURSO_REL)
+      references KDSA200A (DOCCURSO_REL) on delete restrict on update restrict;
 

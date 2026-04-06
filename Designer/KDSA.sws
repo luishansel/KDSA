@@ -5,7 +5,7 @@
 <Workspace>
 	<Local Expanded="Yes">
 		<Model Expanded="Yes" ID="{35C8D4BB-9CCE-44C9-A586-8663635BA830}" Loaded="No" Name="KDSA" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="kdsa.cdm"/>
-		<Model Expanded="Yes" ID="{5EC390BF-F024-4CBD-A5D4-B5F2322C2D94}" Loaded="No" Name="KDSA" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="kdsa.pdm"/>
+		<Model Expanded="Yes" ID="{5EC390BF-F024-4CBD-A5D4-B5F2322C2D94}" Name="KDSA" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="kdsa.pdm"/>
 		<Model Expanded="Yes" ID="{FD3857C8-D990-46AE-9668-34DC1F70ABEB}" Loaded="No" Name="Contable Notre Dame" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="/Sistema Contable ND/Designer/Contable ND.cdm"/>
 		<Model Expanded="Yes" ID="{0D36975F-C119-49D2-99C7-3B87436D651B}" Loaded="No" Name="SCES" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="/Sistema OIRSA/Etiquetado/Designer/sces.cdm"/>
 		<Model Expanded="Yes" ID="{0D36975F-C119-49D2-99C7-3B87436D651B}" Loaded="No" Name="SCES" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="/sistema oirsa/etiquetado/designer/sces.cdm"/>
@@ -83,9 +83,15 @@
 		<Model ID="{54B9C7C9-B373-488B-B851-323BABCE724C}" Loaded="No" Name="DEMO" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="/Users/Luis Hansel/Documents/UCN/Implementacion y validacion del software/Clase 04/Proyecto/designer/DEMO.cdm"/>
 		<Model ID="{CB8CE641-BD93-43E7-8519-0B19F1CEA9A1}" Loaded="No" Name="DEMO" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="/Users/Luis Hansel/Documents/UCN/Implementacion y validacion del software/Clase 04/Proyecto/designer/DEMO.pdm"/>
 		<Model ID="{54B9C7C9-B373-488B-B851-323BABCE724C}" Loaded="No" Name="DEMO" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="/Users/Luis Hansel/Documents/UCN/Arquitectura de software/Clase 04/Proyecto/designer/DEMO.cdm"/>
-		<Model Expanded="Yes" ID="{6835792E-EFAF-4B90-A8E3-0CE00D03D6E5}" Name="UMOJN" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="../../UMOJN/Designer/umojn.cdm"/>
+		<Model Expanded="Yes" ID="{6835792E-EFAF-4B90-A8E3-0CE00D03D6E5}" Loaded="No" Name="UMOJN" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="../../UMOJN/Designer/umojn.cdm"/>
 		<Model ID="{54B9C7C9-B373-488B-B851-323BABCE724C}" Loaded="No" Name="DEMO" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="/Users/Luis Hansel/Documents/UCN/Implementacion y validacion del software/Clase 11/Proyecto/designer/DEMO.cdm"/>
 		<Model ID="{54B9C7C9-B373-488B-B851-323BABCE724C}" Loaded="No" Name="DEMO" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="/Users/Luis Hansel/Documents/UCN/Implementacion y validacion del software/Clase 11/Proyecto/designer/DEMO.cdm"/>
+		<Model Expanded="Yes" ID="{6835792E-EFAF-4B90-A8E3-0CE00D03D6E5}" Loaded="No" Name="UMOJN" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="../../umojn/designer/umojn.cdm"/>
+		<Model Expanded="Yes" ID="{6835792E-EFAF-4B90-A8E3-0CE00D03D6E5}" Loaded="No" Name="UMOJN" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="../../umojn/designer/umojn.cdm"/>
+		<Model ID="{6835792E-EFAF-4B90-A8E3-0CE00D03D6E5}" Loaded="No" Name="UMOJN" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="../../UMOJN/Designer/umojn.cdm"/>
+		<Model ID="{43CD6016-68A2-471A-9F49-208773ADB7C9}" Loaded="No" Name="UMOJN" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../../UMOJN/Designer/UMOJN.pdm"/>
+		<Model Expanded="Yes" ID="{35C8D4BB-9CCE-44C9-A586-8663635BA830}" Loaded="No" Name="KDSA" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="../../KDSA/Designer/kdsa.cdm"/>
+		<Model Expanded="Yes" ID="{35C8D4BB-9CCE-44C9-A586-8663635BA830}" Name="KDSA" Selected="Yes" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="../../KDSA/Designer/kdsa.cdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>

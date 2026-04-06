@@ -218,6 +218,7 @@ set_time_limit (0);
                                     <li><a class="dropdown-item" href="gridUsuarios.php">Usuarios</a></li>
                                     <li><a class="dropdown-item" href="gridGrupos.php">Grupos</a></li>
                                     <li><a class="dropdown-item" href="gridCfgModulo.php">Módulos de los Cursos</a></li>
+                                    <li><a class="dropdown-item" href="gridDocCurso.php">Documentos obligatorios de los Cursos</a></li>
                                     <li><a class="dropdown-item" href="gridFeriados.php">Días no hábiles</a></li>
                                     <!--li><a class="dropdown-item" href="hrrReprogramar.php">Reprogramación de Cursos</a></li-->
                                     <li><a class="dropdown-item" href="hrrMatriculaEnLinea.php">Enlace para Matrícula en Linea</a></li>
