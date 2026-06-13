@@ -1,4 +1,4 @@
-<?php
+ <?php
 	session_start();
 	if (!isset($_SESSION["gnVerifica"]) or $_SESSION["gnVerifica"] != 1)
 	{

@@ -279,7 +279,7 @@
                                 $msCodModulo = trim($filaAux['MODULO_REL']);
                             }
 
-                            if ($msCodModulo == "" and $codigoModGrid == "")
+                            if ($msCodModulo == "" and $CodigoModGrid == "")
                                 fxGuardarDetModulo ($msCodigo, $docenteModGrid, $numeroModGrid, $nombreMod, $fechaIniMod, $fechaFinMod, $valor);
                             else
                                 fxModificarDetModulo ($msCodModulo, $msCodigo, $docenteModGrid, $numeroModGrid, $nombreMod, $fechaIniMod, $fechaFinMod, $valor);
@@ -333,7 +333,7 @@
                         }
                     }
 
-                    fxBorrarDetDocumento($msCodigo);
+                    fxBorrarDetDocObligatorio($msCodigo);
 
                     if (isset($_POST["gridDocumentos"]))
                     {
@@ -1148,7 +1148,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <?php
-                                                    $mDatos = fxDevuelveDetDocumento($msCodigo);
+                                                    $mDatos = fxDevuelveDetDocObligatorio($msCodigo);
 
                                                     while($mFila = $mDatos->fetch())
                                                     {

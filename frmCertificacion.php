@@ -111,7 +111,7 @@
                                         $msConsulta .= "union select distinct KDSA020A.CURSO_REL, NOMBRE_020, CONVOCATORIA_020, GRUPO_020, TIPO_020, ";
                                         $msConsulta .= "(select count(MATRICULA_REL) from KDSA030A where KDSA020A.CURSO_REL = KDSA030A.CURSO_REL and KDSA030A.ESTADO_030 <> 4) as ESTUDIANTES, ";
                                         $msConsulta .= "(select count(MATRICULA_REL) from KDSA030A where KDSA020A.CURSO_REL = KDSA030A.CURSO_REL and KDSA030A.ESTADO_030 = 3) as CERTIFICADOS ";
-                                        $msConsulta .= "from KDSA020A where ACTIVO_020 = 0 and TIPO_020 in (0, 3, 5, 6, 7, 8, 10)";
+                                        $msConsulta .= "from KDSA020A where ACTIVO_020 = 0 and TIPO_020 not in (0, 3, 5, 6, 7, 8, 10)";
                                         $mDatos = $m_cnx_MySQL->prepare($msConsulta);
 			                            $mDatos->execute();
                                         
