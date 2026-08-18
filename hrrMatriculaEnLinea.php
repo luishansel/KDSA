@@ -178,7 +178,7 @@
 		datos.append('maximoCurso', curso);
 
 		$.ajax({
-			url: 'funciones/fxDatosExternos.php',
+			url: 'funciones/fxDatosMatricula.php',
 			type: 'post',
 			data: datos,
 			contentType: false,

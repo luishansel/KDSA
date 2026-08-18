@@ -10,6 +10,7 @@
 	require_once ("funciones/fxGeneral.php");
 	require_once ("funciones/fxUsuarios.php");
 	require_once ("funciones/fxPagos.php");
+	$m_cnx_MySQL = fxAbrirConexion();
 	$Registro = fxVerificaUsuario();
 	
 	if ($Registro == 0)
@@ -58,13 +59,15 @@
 							echo('<button id="remove" type="button" class="btn btn-warning" disabled>Anular</button>');
 							
 						echo('<button id="view" type="button" class="btn btn-warning">Ver</button>');
+						echo('<button id="print" type="button" class="btn btn-warning">Imprimir recibo</button>');
 					?>
                     
                     <table id="grid" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="true" data-keep-selection="true" style="font-size:small">
                     	<thead>
                             <tr>
-                                <th data-column-id="PAGO_REL" data-identifier="true" data-order="desc" data-align="left" data-header-align="left" data-width="9%">Pago</th>
+                                <th data-column-id="PAGO_REL" data-identifier="true" data-align="left" data-header-align="left" data-width="9%">Pago</th>
                                 <th data-column-id="FECHA_040" data-align="left" data-header-align="left" data-width="9%">Fecha</th>
+								<th data-column-id="RECIBO_040" data-align="left" data-header-align="left" data-width="7%">Recibo</th>
                                 <th data-column-id="CONCEPTO_040" data-align="left" data-header-align="left">Concepto</th>
                                 <th data-column-id="MONTO_040" data-align="right" data-header-align="right" data-width="9%">Monto</th>
                                 <th data-column-id="MONEDA_040" data-align="center" data-header-align="center" data-width="9%">Moneda</th>
@@ -81,6 +84,7 @@
 								echo ("<td>" . $Fila["PAGO_REL"] . "</td>");
 								$fecha = date_create_from_format('Y-m-d', $Fila["FECHA_040"]);
 								echo ("<td>" . date_format($fecha, 'd-m-Y') . "</td>");
+								echo ("<td>" . $Fila["RECIBO_040"] . "</td>");
 								echo ("<td>" . $Fila["CONCEPTO_040"] . "</td>");
 								echo ("<td>" . $Fila["MONTO_040"] . "</td>");
 								echo ("<td>" . $Fila["MONEDA_040"] . "</td>");
@@ -135,6 +139,23 @@
                     $.redirect("procPagosEmpresa.php", {mAccion: 1, mCodigo: msCodigo}, "POST");
                 }
             });
+
+			$("#grid").bootgrid().on("selected.rs.jquery.bootgrid", function(e, rows)
+			{
+				msRecibo = rows[0]['RECIBO_040'];
+				msSerie = msRecibo.substring(0,1);
+			})
+
+			$("#print").on("click", function() {
+				if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+				{
+					var msCodigo = $.trim($("#grid").bootgrid("getSelectedRows"));
+					if (msSerie == 'A')
+						$.redirect("repReciboA.php", {KDSA: msCodigo}, "POST", "_blank");
+					else
+						$.redirect("repReciboB.php", {KDSA: msCodigo}, "POST", "_blank");
+				}
+			});
         });
     </script>
 </body>

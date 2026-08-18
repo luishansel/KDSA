@@ -216,9 +216,18 @@
                         <div class="col-sm-12 col-md-7">
                             <select class="form-control" id="cboEstudiante" name="cboEstudiante">
                                 <?php
-                                    $msConsulta = "select ESTUDIANTE_REL, NOMBRES_010, APELLIDOS_010 from KDSA010A order by APELLIDOS_010, NOMBRES_010 desc";
-									$mDatos = $m_cnx_MySQL->prepare($msConsulta);
-									$mDatos->execute();
+									if ($Codigo == "")
+									{
+                                    	$msConsulta = "select ESTUDIANTE_REL, NOMBRES_010, APELLIDOS_010 from KDSA010A order by APELLIDOS_010, NOMBRES_010 desc";
+										$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+										$mDatos->execute();
+									}
+									else
+									{
+										$msConsulta = "select ESTUDIANTE_REL, NOMBRES_010, APELLIDOS_010 from KDSA010A where ESTUDIANTE_REL = ?";
+										$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+										$mDatos->execute([$Estudiante]);
+									}
 
                                     while ($Fila = $mDatos->fetch())
                                     {
@@ -253,14 +262,21 @@
                     <div class="form-group row">
                         <label for="cboCurso" class="col-sm-12 col-md-3 col-form-label">Curso</label>
                         <div class="col-sm-12 col-md-7">
-                            <select class="form-control" id="cboCurso" name="cboCurso" onchange="llenaDisponible(this.value)">
+                            <select class="form-control" id="cboCurso" name="cboCurso" onchange="llenaDisponible(this.value);">
                                 <?php
 									if ($Codigo == "")
+									{
 										$msConsulta = "select CURSO_REL, NOMBRE_020, GRUPO_020, CONVOCATORIA_020, MAXIMO_020, ACTIVO_020 from KDSA020A where ACTIVO_020 = 1 and DATEDIFF(CURRENT_DATE, FECHAINI_020) < 15 order by NOMBRE_020";
+										$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+										$mDatos->execute();
+									}
 									else
-										$msConsulta = "select CURSO_REL, NOMBRE_020, GRUPO_020, CONVOCATORIA_020, MAXIMO_020, ACTIVO_020 from KDSA020A order by NOMBRE_020";
-                                    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
-									$mDatos->execute();
+									{
+										$msConsulta = "select CURSO_REL, NOMBRE_020, GRUPO_020, CONVOCATORIA_020, MAXIMO_020, ACTIVO_020 from KDSA020A where CURSO_REL = ?";
+										$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+										$mDatos->execute([$Curso]);
+									}
+                                    
                                     while ($Fila = $mDatos->fetch())
                                     {
                                         $Valor = rtrim($Fila["CURSO_REL"]);
@@ -330,9 +346,9 @@
                         <div class="col-sm-12 col-md-3">
 						<?php
 							if ($Codigo == "")
-								echo('<input type="date" class="form-control" id="dtpFecha" name="dtpFecha" value="' . date("Y-m-d") . '" />');
+								echo('<input type="date" class="form-control" id="dtpFecha" name="dtpFecha" value="' . date("Y-m-d") . '" readonly/>');
 							else
-								echo('<input type="date" class="form-control" id="dtpFecha" name="dtpFecha" value="' . $Fecha . '" />');
+								echo('<input type="date" class="form-control" id="dtpFecha" name="dtpFecha" value="' . $Fecha . '" readonly/>');
 						?>
                         </div>
                         <div class="col-auto">
@@ -597,7 +613,7 @@
 		datos.append('maximoCurso', curso);
 
 		$.ajax({
-			url: 'funciones/fxDatosExternos.php',
+			url: 'funciones/fxDatosMatricula.php',
 			type: 'post',
 			data: datos,
 			contentType: false,

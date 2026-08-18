@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     11/04/2026 11:16:39 a. m.                    */
+/* Created on:     07/07/2026 1:49:46 p. m.                     */
 /*==============================================================*/
 
 
@@ -118,6 +118,15 @@ create table KDSA008A
 );
 
 alter table KDSA008A comment 'Firmas para la Constancia de Estiduiante activo';
+
+/*==============================================================*/
+/* Table: KDSA009A                                              */
+/*==============================================================*/
+create table KDSA009A
+(
+   SERIEA_009           numeric(10,0)  comment '',
+   SERIEB_009           numeric(10,0)  comment ''
+);
 
 /*==============================================================*/
 /* Table: KDSA010A                                              */
@@ -619,7 +628,7 @@ create table KDSA092A
    CODIGOINATEC_092     varchar(50)  comment '',
    ACUERDO_092          varchar(50)  comment '',
    PRECIO_092           decimal(10,2)  comment '',
-   CUPOS_092            numeric(2,0)  comment '',
+   CUPOS_092            numeric(5,0)  comment '',
    TOTAL_092            decimal(10,2)  comment '',
    primary key (PROFORMA_REL, CONSECUTIVO_REL)
 );

@@ -164,7 +164,7 @@
                     <div class = "form-group row">
 						<label for="txtRecibo" class="col-sm-12 col-md-2 col-form-label">Recibo</label>
                         <div class="col-sm-12 col-md-3">
-						<?php echo('<input type="text" class="form-control" id="txtRecibo" name="txtRecibo" value="' . $Recibo . '" />'); ?>
+						<?php echo('<input type="text" class="form-control" id="txtRecibo" name="txtRecibo" value="' . $Recibo . '" disabled />'); ?>
                         </div>
                     </div>
                     
@@ -223,7 +223,7 @@
                         <div class="col-sm-12 col-md-4">
                             <div class = "radio">
                             <?php
-                                if ($Moneda == 1 or $Codigo == "")
+                                if ($Moneda == 1)
                                     echo('<input type="radio" id="optMoneda1" name="optMoneda" value="0" /> Córdobas <input type="radio" id="optMoneda2" name="optMoneda" value="1" checked /> Dólares');
                                 else
                                     echo('<input type="radio" id="optMoneda1" name="optMoneda" value="0" checked /> Córdobas <input type="radio" id="optMoneda2" name="optMoneda" value="1" /> Dólares');
@@ -401,13 +401,13 @@
 			$.messager.alert('KDSA','No puede ingresar el pago. Ya se hizo el cierre de caja de ' + $('#dtpFecha').val(),'warning');
 			return false;
 		}
-		
+/*		
 		if(document.getElementById('txtRecibo').value=="")
 		{
 			$.messager.alert('KDSA','Falta el Número de Recibo.','warning');
 			return false;
 		}
-		
+*/		
 		if(document.getElementById('txnTipoCambio').value==0)
 		{
 			$.messager.alert('KDSA','Falta el Tipo de Cambio.','warning');
@@ -420,6 +420,18 @@
 			return false;
 		}
 		
+		if(document.getElementById('optTipoPago2').checked && document.getElementById('txtNumeroCk').value=="")
+		{
+			$.messager.alert('KDSA','Falta el Número de referencia del POS.','warning');
+			return false;
+		}
+
+		if(document.getElementById('optTipoPago2').checked && document.getElementById('txtBancoCk').value=="")
+		{
+			$.messager.alert('KDSA','Falta el banco del POS.','warning');
+			return false;
+		}
+
 		if(document.getElementById('optTipoPago3').checked && document.getElementById('txtNumeroCk').value=="")
 		{
 			$.messager.alert('KDSA','Falta el Número del Cheque.','warning');
@@ -458,12 +470,6 @@
 		
 		return true;
 	}
-	
-	window.onload = function() {
-		fechaCerrada();
-		document.getElementById("txnTipoCambio").value = 36.6243;
-		recalcularCordobas();
-	}
 
 	function recalcularCordobas()
 	{
@@ -473,7 +479,7 @@
 		var mnDolares;
 		var mnCordobas;
 		var i;
-
+		
 		for (i=0; i<=registros; i++)
 		{
 			if (gridDetalle.rows[i].deuda == 0){
@@ -560,6 +566,12 @@
 			});
 		}
 	});
+	
+	window.onload = function() {
+		fechaCerrada();
+		document.getElementById("txnTipoCambio").value = 36.6243;
+		recalcularCordobas();
+	}
 
 	$(function(){
 		$('#dgDetalle').datagrid().datagrid('enableCellEditing');

@@ -56,7 +56,6 @@
 		?>
     	<div class="container">
         	<div id="DivContenido">
-                
                 <div class="row">
                     <div class="col-md-12">
                         <form id="gridEstudiante" name="gridEstudiante" action="gridPagos.php" method="post">
@@ -181,14 +180,14 @@
 													if ($mnOpcion == 0)
 													{
 														$msConsulta = "select PAGO_REL, FECHA_040, concat(SERIE_040, ' ', RECIBO_040) as RECIBO_040, NOMBRE_040, CONCEPTO_040, MONTO_040, (case MONEDA_040 when 0 then 'Córdobas' else 'Dólares' end) as MONEDA_040, ";
-														$msConsulta .= "(case ANULADO_040 when 1 then 'x' else '' end) as ANULADO_040 from KDSA040A where OTROINGRESO_040 = 0 and year(FECHA_040) = ? order by PAGO_REL desc";
+														$msConsulta .= "(case ANULADO_040 when 1 then 'x' else '' end) as ANULADO_040 from KDSA040A where OTROINGRESO_040 = 0 and EMPRESARIAL_040 = 0 and year(FECHA_040) = ? order by PAGO_REL desc";
 														$mPagos = $m_cnx_MySQL->prepare($msConsulta);
 														$mPagos->execute([$mnAnno]);
 													}
 													else
 													{
 														$msConsulta = "select PAGO_REL, FECHA_040, concat(SERIE_040, ' ', RECIBO_040) as RECIBO_040, NOMBRE_040, CONCEPTO_040, MONTO_040, (case MONEDA_040 when 0 then 'Córdobas' else 'Dólares' end) as MONEDA_040, ";
-														$msConsulta .= "(case ANULADO_040 when 1 then 'x' else '' end) as ANULADO_040 from KDSA040A where OTROINGRESO_040 = 0 order by PAGO_REL desc";
+														$msConsulta .= "(case ANULADO_040 when 1 then 'x' else '' end) as ANULADO_040 from KDSA040A where OTROINGRESO_040 = 0 and EMPRESARIAL_040 = 0 order by PAGO_REL desc";
 														$mPagos = $m_cnx_MySQL->prepare($msConsulta);
 														$mPagos->execute();
 													}
@@ -233,6 +232,7 @@
 <script type='text/javascript'>
 	$(function() {
 		var msRecibo = "";
+		var msSerie = "";
 
 		function init(){
 			$("#estudiantes").bootgrid({
@@ -283,13 +283,17 @@
 		$("#grid").bootgrid().on("selected.rs.jquery.bootgrid", function(e, rows)
 		{
 			msRecibo = rows[0]['RECIBO_040'];
+			msSerie = msRecibo.substring(0,1);
 		})
 
 		$("#print").on("click", function() {
 			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
 			{
 				var msCodigo = $.trim($("#grid").bootgrid("getSelectedRows"));
-				$.redirect("repRecibo.php", {KDSA: msCodigo}, "POST", "_blank");
+				if (msSerie == 'A')
+					$.redirect("repReciboA.php", {KDSA: msCodigo}, "POST", "_blank");
+				else
+					$.redirect("repReciboB.php", {KDSA: msCodigo}, "POST", "_blank");
 			}
 		});
 	});

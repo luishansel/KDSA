@@ -10,6 +10,27 @@
 		$Numero += 1;
 		$Longitud = strlen($Numero);
 		$msCodigo = "PG" . str_repeat("0", 8 - $Longitud) . trim($Numero);
+
+		//Busca el consecutivo del Recibo
+		if ($msSerie == 'A')
+			$msConsulta = "Select SERIEA_009 as Ultimo from KDSA009A";
+		else
+			$msConsulta = "Select SERIEB_009 as Ultimo from KDSA009A";
+		$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+		$mDatos->execute();
+		$Fila = $mDatos->fetch();
+		$Numero = intval($Fila["Ultimo"]);
+		$Numero += 1;
+		$msRecibo = $Numero;
+
+		//Actualiza el consecutivo del Recibo
+		if ($msSerie == 'A')
+			$msConsulta = "update KDSA009A set SERIEA_009 = ?";
+		else
+			$msConsulta = "update KDSA009A set SERIEB_009 = ?";
+		$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+		$mDatos->execute([$msRecibo]);
+
 		$msConsulta = "insert into KDSA040A (PAGO_REL, FECHA_040, NOMBRE_040, RECIBO_040, SERIE_040, MONTO_040, RETENCION_DGI_040, RETENCION_ALCALDIA_040, MONEDA_040, TIPOCAMBIO_040, ";
 		$msConsulta .= "CONCEPTO_040, TIPOPAGO_040, NUMEROCK_040, BANCOCK_040, OTROINGRESO_040, EMPRESARIAL_040, INATEC_040, ANULADO_040) ";
 		$msConsulta .= "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
@@ -247,7 +268,10 @@
 	{
 		$m_cnx_MySQL = fxAbrirConexion();
 		
-		$msConsulta = "select KDSA040A.PAGO_REL, FECHA_040, NOMBRE_040, CONCEPTO_040, MONTO_040, (case MONEDA_040 when 0 then 'Córdobas' else 'Dólares' end) as MONEDA_040, (case ANULADO_040 when 1 then 'x' else '' end) as ANULADO_040 from KDSA040A where EMPRESARIAL_040 = 1 order by KDSA040A.PAGO_REL desc";
+		$msConsulta = "select KDSA040A.PAGO_REL, FECHA_040, NOMBRE_040, concat(SERIE_040, ' ', RECIBO_040) as RECIBO_040, CONCEPTO_040, ";
+		$msConsulta .= "MONTO_040, (case MONEDA_040 when 0 then 'Córdobas' else 'Dólares' end) as MONEDA_040, ";
+		$msConsulta .= "(case ANULADO_040 when 1 then 'x' else '' end) as ANULADO_040 ";
+		$msConsulta .= "from KDSA040A where EMPRESARIAL_040 = 1 order by KDSA040A.PAGO_REL desc";
 		$mDatos = $m_cnx_MySQL->prepare($msConsulta);
 		$mDatos->execute();
 		return $mDatos;
