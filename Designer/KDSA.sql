@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     07/07/2026 1:49:46 p. m.                     */
+/* Created on:     22/09/2026 3:22:10 p. m.                     */
 /*==============================================================*/
 
 
@@ -403,10 +403,40 @@ create table KDSA043A
 create table KDSA044A
 (
    FECHA_044            date not null  comment '',
+   SERIE_044            char(1)  comment '',
+   CONSECUTIVO_044      numeric(10,0)  comment '',
+   BILLETE500_044       numeric(10,0)  comment '',
+   BILLETE100_044       numeric(10,0)  comment '',
+   BILLETE50_044        numeric(10,0)  comment '',
+   BILLETE20_044        numeric(10,0)  comment '',
+   BILLETE10_044        numeric(10,0)  comment '',
+   MONEDA5_044          numeric(10,0)  comment '',
+   MONEDA1_044          numeric(10,0)  comment '',
+   MONEDA050_044        numeric(10,0)  comment '',
+   MONEDA025_044        numeric(10,0)  comment '',
+   MONEDA010_044        numeric(10,0)  comment '',
+   EFECTIVOCONTADO_044  float(8,2)  comment '',
+   EFECTIVOSOBRANTE_044 float(8,2)  comment '',
+   EFECTIVO_044         float(8,2)  comment 'Ingresos por efectivo según los recibos',
+   TARJETA_044          float(8,2)  comment 'Ingresos por tarjeta según los recibos',
+   CHEQUES_044          float(8,2)  comment 'Ingresos por cheques según los recibos',
+   DEPOSITO_044         float(8,2)  comment 'Ingresos por depósitos según los recibos',
    primary key (FECHA_044)
 );
 
 alter table KDSA044A comment 'Fechas cerradas en la caja';
+
+/*==============================================================*/
+/* Table: KDSA045A                                              */
+/*==============================================================*/
+create table KDSA045A
+(
+   FECHA_045            date not null  comment '',
+   SERIE_045            char(1)  comment '',
+   CONSECUTIVO_045      numeric(10,0)  comment '',
+   MONTO_045            float(8,2)  comment '',
+   primary key (FECHA_045)
+);
 
 /*==============================================================*/
 /* Table: KDSA050A                                              */
