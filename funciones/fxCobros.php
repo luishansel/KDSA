@@ -32,6 +32,7 @@
 					$msConsulta .= "values (?, ?, ?, 0, 0, 0, 0)";
 					$mAuxiliar = $m_cnx_MySQL->prepare($msConsulta);
 					$mAuxiliar->execute([$msCodigo, $msMatricula, $mnMonto]);
+          fxAgregarBitacora('admon', 'KDSA051A', $msCodigo, $msMatricula, 'Agregar');
 				}
 			}
 		}

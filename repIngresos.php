@@ -10,7 +10,7 @@ if (!isset($_SESSION["gnVerifica"]) or $_SESSION["gnVerifica"] != 1)
 require_once ("funciones/fxGeneral.php");
 require_once ("funciones/fxUsuarios.php");
 require_once ("fpdf181/fpdf.php");
-require_once ("libchart/classes/libchart.php");
+//require_once ("libchart/classes/libchart.php");
 
 $Registro = fxVerificaUsuario();
 	
@@ -131,7 +131,7 @@ function DevuelveFecha($Fecha)
 		}
 	return ($Dia . "-" . $NombreMes . "-" . $Anno);
 }
-
+/*
 function generarGrafico($Arreglo)
 {
 	//Generación del Gráfico
@@ -160,7 +160,7 @@ function generarGrafico($Arreglo)
 	$chart->render($nombreArchivo);
 	return $nombreArchivo;
 }
-
+*/
 $FechaIni = date("Y-m-d", strtotime($_POST["dtpFechaIni"]));
 $FechaFin = date("Y-m-d", strtotime($_POST["dtpFechaFin"]));
 $Serie = $_POST["optSerie"];
@@ -198,7 +198,7 @@ $msConsulta .= "'' as CURSO_REL, '' as NOMBRE_020, '' as CONVOCATORIA_020, ANULA
 $msConsulta .= "union ";
 $msConsulta .= "select FECHA_040, NOMBRE_040, RECIBO_040, TIPOPAGO_040, TIPOCAMBIO_040, MONEDA_040, CONCEPTO_040, sum(MONTO_042) as MONTO, sum(RETENCION_DGI_042 + RETENCION_ALCALDIA_042) as RETENCION, ";
 $msConsulta .= "KDSA020A.CURSO_REL, NOMBRE_020, CONVOCATORIA_020, ANULADO_040 from KDSA040A, KDSA042A, KDSA050A, KDSA020A ";
-$msConsulta .= "where KDSA040A.PAGO_REL = KDSA042A.PAGO_REL and KDSA042A.COBRO_REL = KDSA050A.COBRO_REL and ANULADO_040 = 0  and OTROINGRESO_040 = 0 and ";
+$msConsulta .= "where KDSA040A.PAGO_REL = KDSA042A.PAGO_REL and KDSA042A.COBRO_REL = KDSA050A.COBRO_REL and OTROINGRESO_040 = 0 and ";
 $msConsulta .= "KDSA050A.CURSO_REL = KDSA020A.CURSO_REL and EMPRESARIAL_040 = 1 and INATEC_040 = 0 and SERIE_040 = ? and ";
 $msConsulta .= "FECHA_040 between ? and ? group by KDSA042A.PAGO_REL, KDSA020A.CURSO_REL";
 $msConsulta .= ") as A order by A.FECHA_040, A.RECIBO_040";
@@ -485,8 +485,8 @@ $pdf->Cell(25,5,number_format($mnTotal,2,'.',','),'BR',0,'R',true);
 $pdf->SetXY(75,$Linea);
 $pdf->Cell(15,5,'100.0','B',0,'C',true);
 
-$grafico = generarGrafico($arreglo);
-$pdf->Image($grafico,95,$Linea-30,0,50);
+//$grafico = generarGrafico($arreglo);
+//$pdf->Image($grafico,95,$Linea-30,0,50);
 $pdf->Output();
 }
 ?>
