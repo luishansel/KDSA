@@ -58,6 +58,7 @@
 							echo('<button id="remove" type="button" class="btn btn-warning" disabled>Anular</button>');
 							
 						echo('<button id="view" type="button" class="btn btn-warning">Ver</button>');
+                        echo('<button id="print" type="button" class="btn btn-warning">Imprimir recibo</button>');
 					?>
 
                 <table id="grid" class="table table-condensed table-hover table-striped" data-selection="true"
@@ -65,13 +66,13 @@
                     <thead>
                         <tr>
                             <th data-column-id="PAGO_REL" data-identifier="true" data-align="left" data-header-align="left">Pago</th>
-                            <th data-column-id="FECHA_040" data-order="asc" data-align="left" data-header-align="left">Fecha</th>
-                            <th data-column-id="RECIBO_040" data-order="asc" data-align="left" data-header-align="left">Recibo</th>
-                            <th data-column-id="NOMBRE_040" data-order="asc" data-align="left" data-header-align="left">Nombre</th>
-                            <th data-column-id="CONCEPTO_040" data-order="asc" data-align="left" data-header-align="left">Concepto</th>
-                            <th data-column-id="MONTO_040" data-order="asc" data-align="right" data-header-align="right">Monto</th>
-                            <th data-column-id="MONEDA_040" data-order="asc" data-align="center" data-header-align="center">Moneda</th>
-                            <th data-column-id="ANULADO_040" data-order="asc" data-align="center" data-header-align="center">Anulado</th>
+                            <th data-column-id="FECHA_040" data-align="left" data-header-align="left">Fecha</th>
+                            <th data-column-id="RECIBO_040" data-align="left" data-header-align="left">Recibo</th>
+                            <th data-column-id="NOMBRE_040" data-align="left" data-header-align="left">Nombre</th>
+                            <th data-column-id="CONCEPTO_040" data-align="left" data-header-align="left">Concepto</th>
+                            <th data-column-id="MONTO_040" data-align="right" data-header-align="right">Monto</th>
+                            <th data-column-id="MONEDA_040" data-align="center" data-header-align="center">Moneda</th>
+                            <th data-column-id="ANULADO_040" data-align="center" data-header-align="center">Anulado</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,6 +109,9 @@
 <script src="js/jquery.redirect.js"></script>
 <script>
 $(function() {
+    var msRecibo = "";
+	var msSerie = "";
+    
     function init() {
         $("#grid").bootgrid({
             formatters: {
@@ -140,6 +144,23 @@ $(function() {
         {
             var msCodigo = $.trim($("#grid").bootgrid("getSelectedRows"));
             $.redirect("procOtrosIngresos.php", {mAccion: 1, mCodigo: msCodigo}, "POST");
+        }
+    });
+
+    $("#grid").bootgrid().on("selected.rs.jquery.bootgrid", function(e, rows)
+    {
+        msRecibo = rows[0]['RECIBO_040'];
+        msSerie = msRecibo.substring(0,1);
+    })
+
+    $("#print").on("click", function() {
+        if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+        {
+            var msCodigo = $.trim($("#grid").bootgrid("getSelectedRows"));
+            if (msSerie == 'A')
+                $.redirect("repReciboA.php", {KDSA: msCodigo}, "POST", "_blank");
+            else
+                $.redirect("repReciboB.php", {KDSA: msCodigo}, "POST", "_blank");
         }
     });
 });

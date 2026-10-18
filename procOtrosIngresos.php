@@ -10,6 +10,7 @@
 	require_once ("funciones/fxGeneral.php");
 	require_once ("funciones/fxUsuarios.php");
 	require_once ("funciones/fxPagos.php");
+	$m_cnx_MySQL = fxAbrirConexion();
 	$Registro = fxVerificaUsuario();
 	
 	if ($Registro == 0)
@@ -103,7 +104,7 @@
 					$RetDgi = 0;
 					$RetAlcaldia = 0;
 					$Moneda = 0;
-					$TipoCambio = 0;
+					$TipoCambio = 36.6243;
 					$Concepto = "";
 					$TipoPago = 0;
 					$NumeroCk = "";
@@ -153,7 +154,7 @@
                     <div class = "form-group row">
 						<label for="txtRecibo" class="col-sm-12 col-md-2 col-form-label">Recibo</label>
                         <div class="col-sm-12 col-md-3">
-						<?php echo('<input type="text" class="form-control" id="txtRecibo" name="txtRecibo" value="' . $Recibo . '" />'); ?>
+						<?php echo('<input type="text" class="form-control" id="txtRecibo" name="txtRecibo" value="' . $Recibo . '" readonly />'); ?>
                         </div>
                     </div>
                     
@@ -212,10 +213,10 @@
                         <div class="col-sm-12 col-md-4">
                             <div class = "radio">
                             <?php
-                                if ($Moneda == 1 or $Codigo == "")
-                                    echo('<input type="radio" id="optMoneda1" name="optMoneda" value="0" /> Córdobas <input type="radio" id="optMoneda2" name="optMoneda" value="1" checked /> Dólares');
-                                else
-                                    echo('<input type="radio" id="optMoneda1" name="optMoneda" value="0" checked /> Córdobas <input type="radio" id="optMoneda2" name="optMoneda" value="1" /> Dólares');
+                                if ($Moneda == 1)
+										echo('<input type="radio" id="optMoneda1" name="optMoneda" value="0" /> Córdobas <input type="radio" id="optMoneda2" name="optMoneda" value="1" checked /> Dólares');
+									else
+										echo('<input type="radio" id="optMoneda1" name="optMoneda" value="0" checked /> Córdobas <input type="radio" id="optMoneda2" name="optMoneda" value="1" /> Dólares');
                             ?>
                             </div>
                         </div>
@@ -348,6 +349,7 @@
 
 	window.onload = function() {
 		fechaCerrada();
+		document.getElementById("txnTipoCambio").value = 36.6243;
 	}
 
 	function verificarFormulario()
@@ -357,13 +359,13 @@
 			$.messager.alert('KDSA','No puede ingresar el pago. Ya se hizo el cierre de caja de ' + $('#dtpFecha').val(),'warning');
 			return false;
 		}
-
+/*
 		if(document.getElementById('txtRecibo').value=="")
 		{
 			$.messager.alert('KDSA','Falta el Número de Recibo.','warning');
 			return false;
 		}
-		
+*/		
 		if(document.getElementById('txnTipoCambio').value==0)
 		{
 			$.messager.alert('KDSA','Falta el Tipo de Cambio.','warning');
@@ -376,6 +378,12 @@
 			return false;
 		}
 		
+		if(document.getElementById('optTipoPago1').checked && (document.getElementById('txtNumeroCk').value!="" || document.getElementById('txtBancoCk').value!=""))
+		{
+			$.messager.alert('KDSA','El pago es en efectivo pero tiene referencias bancarias.','warning');
+			return false;
+		}
+
 		if(document.getElementById('optTipoPago3').checked && document.getElementById('txtNumeroCk').value=="")
 		{
 			$.messager.alert('KDSA','Falta el Número del Cheque.','warning');

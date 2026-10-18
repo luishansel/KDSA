@@ -11,6 +11,7 @@
 	require_once ("funciones/fxUsuarios.php");
 	require_once ("funciones/fxCobros.php");
 	$Registro = fxVerificaUsuario();
+	$m_cnx_MySQL = fxAbrirConexion();
 	
 	if ($Registro == 0)
 	{
@@ -41,6 +42,15 @@
                 fxAnularCobros($_POST["KDSA"]);
 				fxAgregarBitacora($_SESSION["gsUsuario"], "KDSA050A", $_POST["KDSA"], "", "Anular");
             }
+
+			if (isset($_POST["mnOpcion"]) and isset($_POST["mnAnno"])){
+				$mnOpcion = $_POST["mnOpcion"];
+				$mnAnno = $_POST["mnAnno"];
+			}
+			else{
+				$mnOpcion = 0;
+				$mnAnno = 0;
+			}
 		?>
     	<div class="container">
         	<div id="DivContenido">
@@ -83,39 +93,85 @@
 							echo('<button id="remove" type="button" class="btn btn-warning" disabled>Anular</button>');
 					?>
                     
-                    <table id="grid" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="true" data-keep-selection="true" style="font-size:small">
-                    	<thead>
-                            <tr>
-                                <th data-column-id="COBRO_REL" data-identifier="true" data-align="left" data-header-align="left" data-width="10%">Cobro</th>
-                                <th data-column-id="NOMBRE_020" data-align="left" data-header-align="left">Curso</th>
-                                <th data-column-id="CONCEPTO_050" data-align="left" data-header-align="left" data-width="25%">Concepto</th>
-                                <th data-column-id="TIPO_050" data-align="left" data-header-align="left" data-width="10%">Tipo</th>
-                                <th data-column-id="FECHAPREVISTA_050" data-align="center" data-header-align="center" data-width="10%">Fecha prevista</th>
-                                <th data-column-id="ACTIVO_050" data-align="center" data-header-align="center" data-width="8%">Activo</th>
-                                <th data-column-id="ANULADO_050" data-align="center" data-header-align="center" data-width="8%">Anulado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-							$mDatos = fxDevuelveCobros(1);
+					<div style="float:right; margin-right:1%; display:inline-block">
+						<?php
+							if ($mnOpcion == 0)
+								echo('<input type="radio" name="optFiltro" id="optFiltro1" onchange="fxCambiaOpcion()" checked>Filtrar por año &nbsp;');
+							else
+								echo('<input type="radio" name="optFiltro" id="optFiltro1" onchange="fxCambiaOpcion()">Filtrar por año &nbsp;');
 
-							while ($Fila = $mDatos->fetch())
+							$msConsulta = "select distinct year(FECHAPREVISTA_050) as ANNO from KDSA050A order by year(FECHAPREVISTA_050) desc";
+							$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+							$mDatos->execute();
+
+							echo('<select style="background-color: white" id="cboAnno" name="cboAnno" onchange="fxCambiaOpcion()">');
+							while ($mFila = $mDatos->fetch())
 							{
-								echo ("<tr>");
-								echo ("<td>" . $Fila["COBRO_REL"] . "</td>");
-								echo ("<td>" . $Fila["NOMBRE_020"] . " (" . $Fila["CONVOCATORIA_020"] . " / G" . $Fila["GRUPO_020"] . ")</td>");
-								echo ("<td>" . $Fila["CONCEPTO_050"] . "</td>");
-								echo ("<td>" . $Fila["TIPO_050"] . "</td>");
-								$fecha = date_create_from_format('Y-m-d', $Fila["FECHAPREVISTA_050"]);
-								echo ("<td>" . date_format($fecha, 'd-m-Y') . "</td>");
-								echo ("<td>" . $Fila["ACTIVO_050"] . "</td>");
-								echo ("<td>" . $Fila["ANULADO_050"] . "</td>");
-								echo ("</tr>");
+								$Valor = trim($mFila["ANNO"]);
+								$Texto = trim($mFila["ANNO"]);
+								
+								if ($mnAnno == 0)
+								{
+									$mnAnno = $Valor;
+									echo("<option value='" . $Valor . "' selected>" . $Texto . "</option>");
+								}
+								else{
+									if ($Valor == $mnAnno)
+										echo("<option value='" . $Valor . "' selected>" . $Texto . "</option>");
+									else
+										echo("<option value='" . $Valor . "'>" . $Texto . "</option>");
+								}
+								
 							}
-						}
+							echo('</select> &nbsp;');
+							
+							if ($mnOpcion == 1)
+								echo('<input type="radio" name="optFiltro" id="optFiltro2" onchange="fxCambiaOpcion()" checked>Todos los registros');
+							else
+								echo('<input type="radio" name="optFiltro" id="optFiltro2" onchange="fxCambiaOpcion()">Todos los registros');
 						?>
-                        </tbody>
-                	</table>
+					</div>
+
+					<div class="table-responsive">
+						<table id="grid" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="true" data-keep-selection="true" style="font-size:small">
+							<thead>
+								<tr>
+									<th data-column-id="COBRO_REL" data-identifier="true" data-align="left" data-header-align="left" data-width="10%">Cobro</th>
+									<th data-column-id="CURSO_REL" data-identifier="true" data-align="left" data-header-align="left" data-width="10%">Curso</th>
+									<th data-column-id="NOMBRE_020" data-align="left" data-header-align="left">Nombre de Curso</th>
+									<th data-column-id="CONCEPTO_050" data-align="left" data-header-align="left" data-width="20%">Concepto</th>
+									<th data-column-id="TIPO_050" data-align="left" data-header-align="left" data-width="10%">Tipo</th>
+									<th data-column-id="FECHAPREVISTA_050" data-align="center" data-header-align="center" data-width="10%">Fecha prevista</th>
+									<th data-column-id="ACTIVO_050" data-align="center" data-header-align="center" data-width="8%">Activo</th>
+									<th data-column-id="ANULADO_050" data-align="center" data-header-align="center" data-width="8%">Anulado</th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php
+								if ($mnOpcion == 0)
+									$mDatos = fxDevuelveCobros(1, "", $mnAnno);
+								else
+									$mDatos = fxDevuelveCobros(1);
+
+								while ($Fila = $mDatos->fetch())
+								{
+									echo ("<tr>");
+									echo ("<td>" . $Fila["COBRO_REL"] . "</td>");
+									echo ("<td>" . $Fila["CURSO_REL"] . "</td>");
+									echo ("<td>" . $Fila["NOMBRE_020"] . " (" . $Fila["CONVOCATORIA_020"] . " / G" . $Fila["GRUPO_020"] . ")</td>");
+									echo ("<td>" . $Fila["CONCEPTO_050"] . "</td>");
+									echo ("<td>" . $Fila["TIPO_050"] . "</td>");
+									$fecha = date_create_from_format('Y-m-d', $Fila["FECHAPREVISTA_050"]);
+									echo ("<td>" . date_format($fecha, 'd-m-Y') . "</td>");
+									echo ("<td>" . $Fila["ACTIVO_050"] . "</td>");
+									echo ("<td>" . $Fila["ANULADO_050"] . "</td>");
+									echo ("</tr>");
+								}
+							}
+							?>
+							</tbody>
+						</table>
+					</div>
         		</div>
             </div>
             </div>
@@ -191,6 +247,22 @@
 			}
 		});
     });
+
+	function fxCambiaOpcion(){
+		var mnOpcion;
+		var mnAnno;
+
+		if (document.getElementById("optFiltro1").checked == true){
+			mnOpcion = 0;
+			mnAnno = $("#cboAnno").val();
+		}
+		else{
+			mnOpcion = 1;
+			mnAnno = 0;
+		}
+
+		$.redirect("gridCobros.php", {mnOpcion: mnOpcion, mnAnno: mnAnno}, "POST");
+	}
 </script>
 </body>
 </html>

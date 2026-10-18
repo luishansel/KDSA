@@ -73,34 +73,36 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-											<table id="estudiantes" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="true" data-keep-selection="true" style="font-size:small">
-												<thead>
-													<tr>
-														<th data-column-id="MATRICULA_REL" data-identifier="true" data-align="left" data-header-align="left" data-width="10%">Matrícula</th>
-														<th data-column-id="ESTUDIANTE" data-align="left" data-header-align="left" data-width="45%">Estudiante</th>
-														<th data-column-id="CURSO" data-align="left" data-header-align="left" data-width="45%">Curso</th>
-													</tr>
-												</thead>
-												<tbody>
-												<?php
-													$texto = "";
-													$msConsulta = "select distinct KDSA030A.MATRICULA_REL, concat_ws(', ', trim(APELLIDOS_010), trim(NOMBRES_010)) as ESTUDIANTE, concat(NOMBRE_020, ' (', CONVOCATORIA_020, '/G', GRUPO_020, ')') as CURSO ";
-													$msConsulta .= "from KDSA030A, KDSA020A, KDSA010A, KDSA051A where KDSA030A.CURSO_REL = KDSA020A.CURSO_REL and KDSA030A.ESTUDIANTE_REL = KDSA010A.ESTUDIANTE_REL and ";
-													$msConsulta .= "KDSA030A.MATRICULA_REL = KDSA051A.MATRICULA_REL and ANULADO_051 = 0 and EXONERADO_051 = 0 and PAGADO_051 = 0 and ESTADO_030 <> 4 order by ESTUDIANTE";
-													$mEstudiantes = $m_cnx_MySQL->prepare($msConsulta);
-													$mEstudiantes->execute();
+											<div class="table-responsive">
+												<table id="estudiantes" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="true" data-keep-selection="true" style="font-size:small">
+													<thead>
+														<tr>
+															<th data-column-id="MATRICULA_REL" data-identifier="true" data-align="left" data-header-align="left" data-width="10%">Matrícula</th>
+															<th data-column-id="ESTUDIANTE" data-align="left" data-header-align="left" data-width="45%">Estudiante</th>
+															<th data-column-id="CURSO" data-align="left" data-header-align="left" data-width="45%">Curso</th>
+														</tr>
+													</thead>
+													<tbody>
+													<?php
+														$texto = "";
+														$msConsulta = "select distinct KDSA030A.MATRICULA_REL, concat_ws(', ', trim(APELLIDOS_010), trim(NOMBRES_010)) as ESTUDIANTE, concat(NOMBRE_020, ' (', CONVOCATORIA_020, '/G', GRUPO_020, ')') as CURSO ";
+														$msConsulta .= "from KDSA030A, KDSA020A, KDSA010A, KDSA051A where KDSA030A.CURSO_REL = KDSA020A.CURSO_REL and KDSA030A.ESTUDIANTE_REL = KDSA010A.ESTUDIANTE_REL and ";
+														$msConsulta .= "KDSA030A.MATRICULA_REL = KDSA051A.MATRICULA_REL and ANULADO_051 = 0 and EXONERADO_051 = 0 and PAGADO_051 = 0 and ESTADO_030 <> 4 order by ESTUDIANTE";
+														$mEstudiantes = $m_cnx_MySQL->prepare($msConsulta);
+														$mEstudiantes->execute();
 
-													while ($Row = $mEstudiantes->fetch())
-													{
-														$texto .= '<tr>';
-														$texto .= '<td>' . $Row["MATRICULA_REL"] . '</td>';
-														$texto .= '<td>' . $Row["ESTUDIANTE"] . '</td>';
-														$texto .= '<td>' . $Row["CURSO"] . '</td>';
-														$texto .= '</tr>';
-													}
-													echo($texto);
-												?>
-											</table>
+														while ($Row = $mEstudiantes->fetch())
+														{
+															$texto .= '<tr>';
+															$texto .= '<td>' . $Row["MATRICULA_REL"] . '</td>';
+															$texto .= '<td>' . $Row["ESTUDIANTE"] . '</td>';
+															$texto .= '<td>' . $Row["CURSO"] . '</td>';
+															$texto .= '</tr>';
+														}
+														echo($texto);
+													?>
+												</table>
+											</div>
 										</div>
 									</div>
 								</div>
