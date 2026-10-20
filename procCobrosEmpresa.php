@@ -162,7 +162,8 @@
                                 <?php
 									$msConsulta = "select MATRICULA_REL, concat(trim(APELLIDOS_010), ', ', trim(NOMBRES_010)) as ESTUDIANTE " ;
 									$msConsulta .= "from KDSA030A, KDSA020A, KDSA010A where KDSA030A.CURSO_REL = KDSA020A.CURSO_REL and ";
-									$msConsulta .= "KDSA030A.ESTUDIANTE_REL = KDSA010A.ESTUDIANTE_REL and ACTIVO_020 = 1 and ESTADO_030 <> 4";
+									$msConsulta .= "KDSA030A.ESTUDIANTE_REL = KDSA010A.ESTUDIANTE_REL and ACTIVO_020 = 1 and ESTADO_030 <> 4 ";
+									$msConsulta .= "order by APELLIDOS_010, NOMBRES_010";
                                     $mDatos = $m_cnx_MySQL->prepare($msConsulta);
 									$mDatos->execute();
                                     while ($Fila = $mDatos->fetch())

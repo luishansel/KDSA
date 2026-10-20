@@ -166,6 +166,9 @@
 										}
 									?>
 								</select>
+								<div class="col-sm-12 col-md-2">
+									<input type="text" class="form-control" id="txtBuscarEst" name="txtBuscarEst" placeholder="Filtrar...">
+								</div>
 							</div>
                         </div>
 
@@ -203,6 +206,9 @@
 										}
 									?>
 								</select>
+								<div class="col-sm-12 col-md-2">
+									<input type="text" class="form-control" id="txtBuscarCob" name="txtBuscarCob" placeholder="Filtrar...">
+								</div>
 							</div>
                         </div>
 
@@ -258,38 +264,69 @@
 <script src="bootstrap/dist/jquery.bootgrid.fa.js"></script>
 <script src="js/jquery.redirect.js"></script>
 <script>
-        $(function() {
-            function init() {
-                $("#grid").bootgrid({
-                    formatters: {
-                        "link": function(column, row) {
-                            return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
-                        }
-                    },
-                    rowCount: [-1, 10, 50, 75]
-                });
-            }
+	window.onload = function() 
+	{
+		const searchInputEst = document.getElementById('txtBuscarEst');
+		const comboEst = document.getElementById('cboEstudiante');
+		const optionsEst = Array.from(comboEst.options); // Guardar todas las opciones originales
 
-            init();
+		const searchInputCob = document.getElementById('txtBuscarCob');
+		const comboCob = document.getElementById('cboCobro');
+		const optionsCob = Array.from(comboCob.options); // Guardar todas las opciones originales
 
-			$("#append").on("click", function() {
-				var codCobro = $('#cboCobro option:selected').val();
-				var codMatricula = $('#cboEstudiante option:selected').val();
-				$.redirect("procCobrosIndividuales.php", {mCobro: codCobro, mMatricula: codMatricula, mAccion: 0}, "POST");
+		searchInputEst.addEventListener('input', function () {
+			const filter = this.value.toLowerCase();
+			comboEst.innerHTML = ''; // Limpiar opciones
+
+			// Filtrar y volver a agregar opciones que coincidan
+			optionsEst
+				.filter(opt => opt.text.toLowerCase().includes(filter))
+				.forEach(opt => comboEst.appendChild(opt));
+		});
+
+		searchInputCol.addEventListener('input', function () {
+			const filter = this.value.toLowerCase();
+			comboCob.innerHTML = ''; // Limpiar opciones
+
+			// Filtrar y volver a agregar opciones que coincidan
+			optionsCob
+				.filter(opt => opt.text.toLowerCase().includes(filter))
+				.forEach(opt => comboCob.appendChild(opt));
+		});
+	}
+
+	$(function() {
+		function init() {
+			$("#grid").bootgrid({
+				formatters: {
+					"link": function(column, row) {
+						return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
+					}
+				},
+				rowCount: [-1, 10, 50, 75]
 			});
-			
-            $("#edit").on("click", function() {
-				var codCobro = $.trim($("#grid").bootgrid("getSelectedRows"));
-				var codMatricula = $('#cboEstudiante option:selected').val();
-				$.redirect("procCobrosIndividuales.php", {mCobro: codCobro, mMatricula: codMatricula, mAccion: 1}, "POST");
-			});
-						
-			$("#remove").on("click", function() {
-				var codCobro = $.trim($("#grid").bootgrid("getSelectedRows"));
-				var codMatricula = $('#cboEstudiante option:selected').val();
-				$.redirect("procCobrosIndividuales.php", {mCobro: codCobro, mMatricula: codMatricula, mAccion: 2}, "POST");
-			});
-        });
-    </script>
+		}
+
+		init();
+
+		$("#append").on("click", function() {
+			var codCobro = $('#cboCobro option:selected').val();
+			var codMatricula = $('#cboEstudiante option:selected').val();
+			$.redirect("procCobrosIndividuales.php", {mCobro: codCobro, mMatricula: codMatricula, mAccion: 0}, "POST");
+		});
+		
+		$("#edit").on("click", function() {
+			var codCobro = $.trim($("#grid").bootgrid("getSelectedRows"));
+			var codMatricula = $('#cboEstudiante option:selected').val();
+			$.redirect("procCobrosIndividuales.php", {mCobro: codCobro, mMatricula: codMatricula, mAccion: 1}, "POST");
+		});
+					
+		$("#remove").on("click", function() {
+			var codCobro = $.trim($("#grid").bootgrid("getSelectedRows"));
+			var codMatricula = $('#cboEstudiante option:selected').val();
+			$.redirect("procCobrosIndividuales.php", {mCobro: codCobro, mMatricula: codMatricula, mAccion: 2}, "POST");
+		});
+	});
+</script>
 </body>
 </html>
