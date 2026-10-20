@@ -40,8 +40,8 @@
 			if (isset($_POST["txtEstudiante"]))
 			{
 				$Codigo = $_POST["txtEstudiante"];
-				$Nombres = htmlentities($_POST["txtNombres"]);
-				$Apellidos = htmlentities($_POST["txtApellidos"]);
+				$Nombres = $_POST["txtNombres"];
+				$Apellidos = $_POST["txtApellidos"];
 				$Sexo = $_POST["optSexo"];
 				$Cedula = $_POST["txtCedula"];
 				$FechaNac = $_POST["dtpFechaNac"];
